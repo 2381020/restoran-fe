@@ -17,6 +17,7 @@ export const Register = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<RegisterInput>();
+  
   const handleRegister = async (data: RegisterInput) => {
     try {
       await axios.post("/api/auth/register", {
@@ -33,8 +34,9 @@ export const Register = () => {
   const { mutate } = useMutation({ mutationFn: handleRegister });
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-md">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 bg-cover bg-center" style={{ backgroundImage: 'url("https://static.vecteezy.com/system/resources/previews/008/660/558/non_2x/organic-food-background-hand-drawn-concept-free-vector.jpg")' }}>
+      <div className="absolute inset-0 bg-black" style={{ opacity: 0.6 }}></div>
+      <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg backdrop-blur-md">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Create an Account
         </h2>
@@ -54,13 +56,13 @@ export const Register = () => {
               id="username"
               type="text"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder="yourusername"
               {...register("username")}
             />
 
             {errors.username && (
-              <p className="text-red-600 text-xs italic" id="titleError">
+              <p className="text-red-600 text-xs italic">
                 Username is required.
               </p>
             )}
@@ -77,12 +79,12 @@ export const Register = () => {
               id="email"
               type="email"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder="you@example.com"
               {...register("email")}
             />
             {errors.email && (
-              <p className="text-red-600 text-xs italic" id="titleError">
+              <p className="text-red-600 text-xs italic">
                 Email is required.
               </p>
             )}
@@ -99,12 +101,12 @@ export const Register = () => {
               id="password"
               type="password"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder="••••••••"
               {...register("password")}
             />
             {errors.password && (
-              <p className="text-red-600 text-xs italic" id="titleError">
+              <p className="text-red-600 text-xs italic">
                 Password is required.
               </p>
             )}

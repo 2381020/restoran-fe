@@ -1,15 +1,16 @@
-import {
-  Disclosure,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems
-} from "@headlessui/react";
-import { BellIcon } from "@heroicons/react/16/solid";
+import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../utils/AuthProvider";
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'; // ini yang benar
 
-const navigation = [{ name: "Post", to: "/posts", current: false }];
+const navigation = [
+  { name: "Home", to: "/", current: false },
+  { name: "Restoran", to: "/restaurants", current: false },
+  { name: "Keranjang", to: "/cart", current: false },
+  { name: "Pesanan", to: "/orderhistory", current: false },
+  { name: "Akun", to: "/profile", current: false },
+  { name: "Bantuan", to: "/Help", current: false }
+];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -18,97 +19,62 @@ function classNames(...classes: string[]) {
 const Navbar = () => {
   const { logout } = useAuth();
   return (
-    <Disclosure as="nav" className="bg-gray-800">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between">
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center">
-              <img
-                alt="Your Company"
-                src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
-              />
-            </div>
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  <NavLink
-                    to={item.to}
-                    key={item.name}
-                    className={({ isActive }) => {
-                      return classNames(
-                        isActive
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "rounded-md px-3 py-2 text-sm font-medium"
-                      );
-                    }}
-                  >
-                    {item.name}
-                  </NavLink>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="sr-only">View notifications</span>
-              <BellIcon aria-hidden="true" className="size-6" />
-            </button>
-
-            {/* Profile dropdown */}
-            <Menu as="div" className="relative ml-3">
-              <div>
-                <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">Open user menu</span>
-                  <img
-                    alt=""
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    className="size-8 rounded-full"
-                  />
-                </MenuButton>
-              </div>
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-              >
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Your Profile
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Settings
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    onClick={() => {
-                      logout();
-                    }}
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Sign out
-                  </a>
-                </MenuItem>
-              </MenuItems>
-            </Menu>
-          </div>
+    <div className="flex h-screen bg-[#333333]">
+      {/* Sidebar */}
+      <div className="w-64 bg-[#333333] p-6">
+        <div className="flex items-center justify-center mb-8">
+          <img
+            alt="FoodEase Logo"
+            src="https://png.pngtree.com/png-clipart/20230407/ourmid/pngtree-cutlery-bowl-logo-free-png-image_6682912.png"
+            className="h-12 w-auto"
+          /><span className="text-white text-xl font-semibold">FoodEase</span>
         </div>
+        <div className="flex flex-col space-y-4">
+          {navigation.map((item) => (
+            <NavLink
+              to={item.to}
+              key={item.name}
+              className={({ isActive }) =>
+                classNames(
+                  isActive ? "bg-[#FFD93D] text-[#333333]" : "text-white hover:bg-[#444444] hover:text-white",
+                  "rounded-md px-4 py-2 text-sm font-medium transition-colors duration-200"
+                )
+              }
+            >
+              {item.name}
+            </NavLink>
+          ))}
+        </div>
+
+        {/* Logout icon button */}
+        <Menu as="div" className="relative mt-8">
+          <div>
+            <MenuButton className="relative flex rounded-full bg-[#333333] text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#333333]">
+              <span className="sr-only">Open logout menu</span>
+              <ArrowRightOnRectangleIcon className="w-10 h-10 text-white" />
+            </MenuButton>
+          </div>
+          <MenuItems
+            transition
+            className="absolute left-0 z-10 mt-2 w-48 origin-top-left rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 transition-all duration-200"
+          >
+            <MenuItem>
+              <a
+                onClick={() => logout()}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer"
+              >
+                Sign out
+              </a>
+            </MenuItem>
+          </MenuItems>
+        </Menu>
       </div>
-    </Disclosure>
+
+      {/* Content area */}
+      <div className="flex-1 p-6">
+        {/* Place your main content here */}
+      </div>
+    </div>
   );
 };
 

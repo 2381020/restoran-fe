@@ -1,15 +1,18 @@
-import { Outlet } from 'react-router-dom'
-import Navbar from '../components/Navbar'
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const RootLayout = () => {
   return (
-    <div>
+    <div className="flex h-screen overflow-hidden">
+      {/* Sidebar */}
       <Navbar />
-      <div className="container mx-auto px-4">
-        <Outlet />
-      </div>
-    </div>
-  )
-}
 
-export default RootLayout
+      {/* Main content */}
+      <main className="flex-1 overflow-y-auto bg-[#FFF8F0] p-6">
+        <Outlet />
+      </main>
+    </div>
+  );
+};
+
+export default RootLayout;
