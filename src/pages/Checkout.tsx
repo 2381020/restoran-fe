@@ -16,13 +16,7 @@ type CartItem = {
   };
 };
 
-type OrderDto = {
-  userId: number;
-  paymentMethod: string;
-  deliveryAddress: string;
-  cartItems: { menuId: number; quantity: number; price: number }[];
-  totalPrice: number;
-};
+
 
 const Checkout = () => {
   const navigate = useNavigate();
