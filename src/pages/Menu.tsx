@@ -87,7 +87,19 @@ const Menu = () => {
         alert("Item ini sudah ada di keranjang!");
         return;
       }
-
+       await axios.post(
+        "/api/cart",
+        {
+          userId: 1, // Gantilah dengan userId yang sesuai, misalnya dari token
+          menuId: item.id,
+          quantity: 1,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       // Jika berhasil, tambahkan item ke cartItems
       setCartItems((prev) => [...prev, item]);
       alert("Berhasil menambahkan ke keranjang!");
