@@ -37,7 +37,7 @@ const Checkout = () => {
       }
 
       const response = await axios.get(`/api/cart/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
       setCartItems(response.data.data);
     } catch (error) {
@@ -76,8 +76,8 @@ const Checkout = () => {
       cartItems: cartItems.map((item) => ({
         menuId: item.menu.id,
         quantity: item.quantity,
-        price: item.menu.price
-      }))
+        price: item.menu.price,
+      })),
     };
 
     try {
@@ -88,24 +88,19 @@ const Checkout = () => {
         return;
       }
 
-      console.log("Token yang dikirim:", token); // Log token di sini
-      console.log("Order Data yang dikirim:", orderData);
-
       const response = await axios.post(
-        `https://restoran-be.vercel.app/api/order/${userId}`, // Menyertakan userId di URL
+        `https://restoran-be.vercel.app/api/order/${userId}`,
         orderData,
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      // Periksa status respons menggunakan rentang kode sukses 2xx
       if (response.status >= 200 && response.status < 300) {
         alert("Pesanan berhasil dibuat!");
-        setCartItems([]); // Kosongkan keranjang
-        navigate("/orderhistory"); // Redirect ke riwayat pesanan
+        setCartItems([]);
+        navigate("/orderhistory");
       } else {
-        // Tangani kasus status selain sukses
         alert(`Terjadi kesalahan: ${response.status} - ${response.statusText}`);
       }
     } catch (error) {
@@ -124,8 +119,8 @@ const Checkout = () => {
   );
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+    <div className="p-4 sm:p-6 max-w-4xl mx-auto">
+      <h2 className="text-xl sm:text-3xl font-semibold text-center mb-6 text-gray-800">
         Checkout
       </h2>
 
@@ -136,30 +131,32 @@ const Checkout = () => {
           {cartItems.map((item) => (
             <div
               key={item.id}
-              className="flex items-center justify-between p-4 bg-white shadow-lg rounded-lg hover:shadow-xl transition-all"
+              className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 p-4 bg-white shadow-md rounded-lg"
             >
               <img
                 src={item.menu.imageUrl}
                 alt={item.menu.name}
-                className="w-20 h-20 object-cover rounded-lg"
+                className="w-full sm:w-24 h-40 sm:h-24 object-cover rounded"
               />
-              <div className="flex-1 ml-4">
-                <h3 className="text-lg font-semibold text-gray-800">
+              <div className="flex-1 text-center sm:text-left">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800">
                   {item.menu.name}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-sm sm:text-base">
                   Harga: Rp {item.menu.price.toLocaleString()}
                 </p>
-                <p className="text-gray-600">Jumlah: {item.quantity}</p>
+                <p className="text-gray-600 text-sm sm:text-base">
+                  Jumlah: {item.quantity}
+                </p>
               </div>
-              <p className="font-semibold text-green-500">
+              <p className="font-semibold text-green-600 text-sm sm:text-base text-center">
                 Rp {(item.menu.price * item.quantity).toLocaleString()}
               </p>
             </div>
           ))}
 
-          <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4 text-gray-800">
+          <div className="bg-gray-100 p-4 sm:p-6 rounded-lg shadow-md">
+            <h3 className="text-lg sm:text-xl font-semibold mb-4 text-gray-800">
               Detail Pemesanan
             </h3>
 
@@ -200,13 +197,13 @@ const Checkout = () => {
               />
             </div>
 
-            <div className="mt-4 flex justify-between items-center">
-              <p className="text-xl font-semibold text-gray-800">
+            <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className="text-lg sm:text-xl font-semibold text-gray-800">
                 Total Harga: Rp {totalPrice.toLocaleString()}
               </p>
               <button
                 onClick={handleConfirmOrder}
-                className="px-6 py-2 bg-[#333333] text-[#FFD93D] rounded-lg hover:bg-[#333333] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-auto px-4 py-2 bg-[#333333] text-[#FFD93D] rounded-lg hover:bg-[#444444] transition"
               >
                 Konfirmasi Pesanan
               </button>
