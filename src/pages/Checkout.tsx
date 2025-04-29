@@ -69,7 +69,6 @@ const Checkout = () => {
     );
 
     const orderData = {
-      userId,
       paymentMethod,
       deliveryAddress,
       totalPrice,
@@ -92,12 +91,13 @@ const Checkout = () => {
       console.log("Order Data yang dikirim:", orderData);
 
       const response = await axios.post(
-        `https://restoran-be.vercel.app/api/order/${userId}`, // Menyertakan userId di URL
+        `/api/order`,
         orderData,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
       );
+      
 
       // Periksa status respons menggunakan rentang kode sukses 2xx
       if (response.status >= 200 && response.status < 300) {
