@@ -39,7 +39,7 @@ const RestaurantList = () => {
             <p className="text-gray-600 mb-4">Alamat: Jalan Makan No.{item}</p>
             <Link
               to={`/menu/${item}`}
-              className="text-blue-600 hover:text-blue-800 focus:outline-none"
+              className="text-[#FFCC00] hover:text-[#FFCC00] focus:outline-none"
             >
               Lihat Menu
             </Link>
