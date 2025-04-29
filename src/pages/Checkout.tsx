@@ -16,8 +16,6 @@ type CartItem = {
   };
 };
 
-
-
 const Checkout = () => {
   const navigate = useNavigate();
   const { getToken } = useAuth();
@@ -39,7 +37,7 @@ const Checkout = () => {
       }
 
       const response = await axios.get(`/api/cart/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` }
       });
       setCartItems(response.data.data);
     } catch (error) {
@@ -78,8 +76,8 @@ const Checkout = () => {
       cartItems: cartItems.map((item) => ({
         menuId: item.menu.id,
         quantity: item.quantity,
-        price: item.menu.price,
-      })),
+        price: item.menu.price
+      }))
     };
 
     try {
@@ -94,10 +92,10 @@ const Checkout = () => {
       console.log("Order Data yang dikirim:", orderData);
 
       const response = await axios.post(
-        `http://localhost:3000/api/order/${userId}`,  // Menyertakan userId di URL
+        `https://restoran-be.vercel.app/api/order/${userId}`, // Menyertakan userId di URL
         orderData,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` }
         }
       );
 
@@ -127,7 +125,9 @@ const Checkout = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Checkout</h2>
+      <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+        Checkout
+      </h2>
 
       {cartItems.length === 0 ? (
         <p className="text-center text-gray-600">Keranjang kosong.</p>
@@ -144,7 +144,9 @@ const Checkout = () => {
                 className="w-20 h-20 object-cover rounded-lg"
               />
               <div className="flex-1 ml-4">
-                <h3 className="text-lg font-semibold text-gray-800">{item.menu.name}</h3>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {item.menu.name}
+                </h3>
                 <p className="text-gray-600">
                   Harga: Rp {item.menu.price.toLocaleString()}
                 </p>
@@ -157,7 +159,9 @@ const Checkout = () => {
           ))}
 
           <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4 text-gray-800">Detail Pemesanan</h3>
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">
+              Detail Pemesanan
+            </h3>
 
             <div className="mb-4">
               <label
@@ -198,8 +202,7 @@ const Checkout = () => {
 
             <div className="mt-4 flex justify-between items-center">
               <p className="text-xl font-semibold text-gray-800">
-                Total Harga: Rp{" "}
-                {totalPrice.toLocaleString()}
+                Total Harga: Rp {totalPrice.toLocaleString()}
               </p>
               <button
                 onClick={handleConfirmOrder}
