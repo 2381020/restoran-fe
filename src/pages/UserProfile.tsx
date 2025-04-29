@@ -43,7 +43,7 @@ const UserProfile = () => {
           </div>
           <label
             htmlFor="profilePicture"
-            className="cursor-pointer text-sm font-medium text-blue-500 hover:text-blue-700"
+            className="cursor-pointer text-sm font-medium text-[#c29b02] hover:text-[#c29b02]"
           >
             Ganti Foto Profil
           </label>
