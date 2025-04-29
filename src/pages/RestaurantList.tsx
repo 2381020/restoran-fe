@@ -22,7 +22,7 @@ const RestaurantList = () => {
         {categories.map((kategori) => (
           <button
             key={kategori}
-            className="px-6 py-2 bg-[#FFD93D] rounded-lg text-gray-700 hover:bg-[#FFCC00] focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-6 py-2 bg-[#FFD93D] rounded-lg text-gray-700 hover:bg-[#FFCC00] focus:outline-none focus:ring-2 focus:ring-yellow-500"
           >
             {kategori}
           </button>
