@@ -13,7 +13,7 @@ const RestaurantList = () => {
           type="text"
           placeholder="Cari restoran berdasarkan nama atau lokasi..."
         />
-        <button className="ml-3 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button className="ml-3 px-6 py-2 bg-black-600 text-yellow rounded-lg hover:bg-black-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
           Cari
         </button>
       </div>
