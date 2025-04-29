@@ -82,7 +82,6 @@ const Cart = () => {
       await axios.patch(
         "/api/cart",
         {
-          userId,
           menuId,
           quantity: newQuantity,
         },
@@ -91,7 +90,7 @@ const Cart = () => {
             Authorization: `Bearer ${token}`,
           },
         }
-      );
+      );      
       setCartItems((prev) =>
         prev.map((item) =>
           item.menu.id === menuId ? { ...item, quantity: newQuantity } : item
