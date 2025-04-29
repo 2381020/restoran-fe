@@ -206,7 +206,7 @@ const Checkout = () => {
               </p>
               <button
                 onClick={handleConfirmOrder}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-6 py-2 bg-[#333333] text-[#FFD93D] rounded-lg hover:bg-[#333333] focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 Konfirmasi Pesanan
               </button>
