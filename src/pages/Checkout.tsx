@@ -173,7 +173,7 @@ const Checkout = () => {
                 onChange={(e) => setPaymentMethod(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value="">Pilih metode pembayaran</option>
+                <option value="" className="text-gray-400">Pilih metode pembayaran</option>
                 <option value="e-wallet">E-Wallet</option>
                 <option value="transfer">Transfer Bank</option>
                 <option value="cod">Cash On Delivery</option>
