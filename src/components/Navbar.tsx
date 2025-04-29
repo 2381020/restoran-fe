@@ -58,27 +58,17 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile top navbar */}
-      <div className="md:hidden flex flex-col w-full bg-[#333333] p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <img
-              alt="FoodEase Logo"
-              src="https://png.pngtree.com/png-clipart/20230407/ourmid/pngtree-cutlery-bowl-logo-free-png-image_6682912.png"
-              className="h-8 w-auto"
-            />
-            <span className="text-white text-lg font-semibold ml-2">FoodEase</span>
-          </div>
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="text-white focus:outline-none"
-          >
-            <Bars3Icon className="h-8 w-8" />
-          </button>
-        </div>
+      {/* Mobile Hamburger Icon only */}
+      <div className="md:hidden fixed top-4 left-2 z-50">
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="text-white focus:outline-none"
+        >
+          <Bars3Icon className="h-8 w-8" />
+        </button>
       </div>
 
-      {/* Mobile sidebar */}
+      {/* Mobile Sidebar */}
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog as="div" className="relative z-50 md:hidden" onClose={setSidebarOpen}>
           <Transition.Child
@@ -157,9 +147,9 @@ const Navbar = () => {
         </Dialog>
       </Transition.Root>
 
-      {/* Content area */}
+      {/* Content Area */}
       <div className="flex-1 p-6 overflow-auto">
-        {/* Place your main content here */}
+        {/* Main content */}
       </div>
     </div>
   );
