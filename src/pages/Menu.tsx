@@ -18,8 +18,8 @@ const fetchMenuList = async (token: string | null) => {
   try {
     const response = await axios.get<MenuItem[]>("api/menus", {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     });
     return response.data;
   } catch (error: any) {
@@ -30,7 +30,7 @@ const fetchMenuList = async (token: string | null) => {
 const MenuCard = ({
   item,
   onAddToCart,
-  isItemInCart,
+  isItemInCart
 }: {
   item: MenuItem;
   onAddToCart: (item: MenuItem) => void;
@@ -51,7 +51,11 @@ const MenuCard = ({
         </p>
         <button
           onClick={() => onAddToCart(item)}
-          className={`mt-4 w-full py-2 rounded-lg text-gray-800 font-semibold transition-colors ${isItemInCart ? "bg-gray-400 cursor-not-allowed" : "bg-[#FFD93D] hover:bg-[#FFCC00]"}`}
+          className={`mt-4 w-full py-2 rounded-lg text-gray-800 font-semibold transition-colors ${
+            isItemInCart
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-[#FFD93D] hover:bg-[#FFCC00]"
+          }`}
           disabled={isItemInCart} // Disable if already in cart
         >
           {isItemInCart ? "Sudah di Keranjang" : "Tambah ke Keranjang"}
@@ -65,12 +69,12 @@ const Menu = () => {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const { getToken } = useAuth();
   const navigate = useNavigate();
-  
+
   const [cartItems, setCartItems] = useState<MenuItem[]>([]);
 
   const { data, isLoading, error } = useQuery<MenuItem[], Error>({
     queryKey: ["menuList", restaurantId],
-    queryFn: () => fetchMenuList(getToken()),
+    queryFn: () => fetchMenuList(getToken())
   });
 
   const handleAddToCart = async (item: MenuItem) => {
@@ -80,26 +84,29 @@ const Menu = () => {
       navigate("/login");
       return;
     }
-  
+
     try {
       if (cartItems.some((cartItem) => cartItem.id === item.id)) {
         alert("Item ini sudah ada di keranjang!");
         return;
       }
-  
+
+      const user = JSON.parse(localStorage.getItem("user") || "{}"); // atau ambil dari context Auth
+
       await axios.post(
         "/api/cart",
         {
+          userId: user.id, // pastikan ini ada dan valid
           menuId: item.id,
-          quantity: 1,
+          quantity: 1
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            Authorization: `Bearer ${token}`
+          }
         }
       );
-  
+
       setCartItems((prev) => [...prev, item]);
       alert("Berhasil menambahkan ke keranjang!");
     } catch (error: any) {
@@ -107,9 +114,13 @@ const Menu = () => {
       alert("Gagal menambahkan ke keranjang.");
     }
   };
-  
 
-  if (isLoading) return <div className="text-center text-xl font-semibold text-blue-500">Memuat menu...</div>;
+  if (isLoading)
+    return (
+      <div className="text-center text-xl font-semibold text-blue-500">
+        Memuat menu...
+      </div>
+    );
 
   if (error) {
     return (
@@ -130,7 +141,9 @@ const Menu = () => {
             key={item.id}
             item={item}
             onAddToCart={handleAddToCart}
-            isItemInCart={cartItems.some((cartItem: MenuItem) => cartItem.id === item.id)}
+            isItemInCart={cartItems.some(
+              (cartItem: MenuItem) => cartItem.id === item.id
+            )}
           />
         ))}
       </div>
