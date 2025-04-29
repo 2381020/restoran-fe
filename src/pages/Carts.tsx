@@ -169,7 +169,7 @@ const Cart = () => {
             </p>
             <button
               onClick={() => navigate("/checkout")}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              className="px-4 py-2 bg-[#FFD93D] text-gray-700 rounded-lg hover:bg-[#FFCC00]"
             >
               Checkout
             </button>

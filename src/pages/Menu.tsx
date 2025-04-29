@@ -109,7 +109,7 @@ const Menu = () => {
     }
   };
 
-  if (isLoading) return <div className="text-center text-xl font-semibold text-blue-500">Memuat menu...</div>;
+  if (isLoading) return <div className="text-center text-xl font-semibold text-gray-500">Memuat menu...</div>;
 
   if (error) {
     return (
