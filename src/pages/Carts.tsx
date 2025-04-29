@@ -17,14 +17,13 @@ type CartItem = {
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { getToken } = useAuth(); // ambil token user
+  const { getToken } = useAuth();
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const userId = Number(localStorage.getItem("userId")) || 1; // fallback buat testing
+  const userId = Number(localStorage.getItem("userId")) || 1;
 
-  // Fetch Cart Items from API
   const fetchCartItems = async () => {
     try {
       const token = getToken();
@@ -53,7 +52,6 @@ const Cart = () => {
     fetchCartItems();
   }, []);
 
-  // Handle Delete Cart Item
   const handleDeleteItem = async (menuId: number) => {
     try {
       const token = getToken();
@@ -71,7 +69,6 @@ const Cart = () => {
     }
   };
 
-  // Handle Update Item Quantity
   const handleUpdateQuantity = async (menuId: number, newQuantity: number) => {
     if (newQuantity < 1) {
       alert("Minimal quantity 1");
@@ -103,7 +100,7 @@ const Cart = () => {
     }
   };
 
-  if (loading) return <div>Memuat keranjang...</div>;
+  if (loading) return <div className="p-6 text-center">Memuat keranjang...</div>;
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.menu.price * item.quantity,
@@ -111,8 +108,10 @@ const Cart = () => {
   );
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-semibold text-center mb-6">Keranjang Belanja</h2>
+    <div className="p-4 sm:p-6">
+      <h2 className="text-xl sm:text-2xl font-semibold text-center mb-6">
+        Keranjang Belanja
+      </h2>
       {cartItems.length === 0 ? (
         <p className="text-center">Keranjang Anda kosong.</p>
       ) : (
@@ -121,40 +120,40 @@ const Cart = () => {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between p-4 bg-white shadow-lg rounded-lg"
+                className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4 p-4 bg-white shadow-md rounded-lg"
               >
                 <img
                   src={item.menu.imageUrl}
                   alt={item.menu.name}
-                  className="w-20 h-20 object-cover"
+                  className="w-full sm:w-20 h-40 sm:h-20 object-cover rounded"
                 />
-                <div className="flex-1 ml-4">
-                  <h3 className="text-xl">{item.menu.name}</h3>
-                  <p className="text-gray-600">
+                <div className="flex-1 text-center sm:text-left">
+                  <h3 className="text-base sm:text-lg font-medium">{item.menu.name}</h3>
+                  <p className="text-gray-600 text-sm sm:text-base">
                     Rp {item.menu.price.toLocaleString()}
                   </p>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center gap-2 justify-center sm:justify-end flex-wrap">
                   <button
                     onClick={() =>
                       handleUpdateQuantity(item.menu.id, item.quantity - 1)
                     }
-                    className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400"
+                    className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 text-sm"
                   >
                     -
                   </button>
-                  <span className="mx-4">{item.quantity}</span>
+                  <span className="px-2">{item.quantity}</span>
                   <button
                     onClick={() =>
                       handleUpdateQuantity(item.menu.id, item.quantity + 1)
                     }
-                    className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400"
+                    className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 text-sm"
                   >
                     +
                   </button>
                   <button
                     onClick={() => handleDeleteItem(item.menu.id)}
-                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
                   >
                     Hapus
                   </button>
@@ -162,14 +161,13 @@ const Cart = () => {
               </div>
             ))}
           </div>
-          <div className="mt-6 flex justify-between items-center">
-            <p className="text-lg font-semibold">
-              Total: Rp{" "}
-              {totalPrice.toLocaleString()} {/* Total price correctly formatted */}
+          <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-base sm:text-lg font-semibold">
+              Total: Rp {totalPrice.toLocaleString()}
             </p>
             <button
               onClick={() => navigate("/checkout")}
-              className="px-4 py-2 bg-[#333333] text-[#FFD93D] rounded-lg hover:bg-[#333333]"
+              className="w-full sm:w-auto px-4 py-2 bg-[#333333] text-[#FFD93D] rounded-lg hover:bg-[#444444] text-center"
             >
               Checkout
             </button>
