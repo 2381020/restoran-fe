@@ -80,17 +80,16 @@ const Menu = () => {
       navigate("/login");
       return;
     }
-
+  
     try {
-      // Cek apakah item sudah ada di keranjang
       if (cartItems.some((cartItem) => cartItem.id === item.id)) {
         alert("Item ini sudah ada di keranjang!");
         return;
       }
-       await axios.post(
+  
+      await axios.post(
         "/api/cart",
         {
-          userId: 1, // Gantilah dengan userId yang sesuai, misalnya dari token
           menuId: item.id,
           quantity: 1,
         },
@@ -100,7 +99,7 @@ const Menu = () => {
           },
         }
       );
-      // Jika berhasil, tambahkan item ke cartItems
+  
       setCartItems((prev) => [...prev, item]);
       alert("Berhasil menambahkan ke keranjang!");
     } catch (error: any) {
@@ -108,6 +107,7 @@ const Menu = () => {
       alert("Gagal menambahkan ke keranjang.");
     }
   };
+  
 
   if (isLoading) return <div className="text-center text-xl font-semibold text-blue-500">Memuat menu...</div>;
 
